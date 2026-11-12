@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id" data-t="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cerdas Cermat – Quiz Arena</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+<header class="top"><b class="logo">Cerdas Cermat</b>
+<nav><button class="lnk" data-d="lb">Peringkat</button><button class="lnk" data-d="gd">Panduan</button><button class="lnk" data-d="st">Pengaturan</button></nav></header>
+
+<main>
+<section id="menu" class="scr on"><div class="hero"><div>
+<h1>Asah Otakmu, Raih Kemenanganmu!</h1>
+<p class="mu lead">Arena kuis cepat dengan empat mode, sepuluh mata pelajaran, dan sistem combo. Jawab tepat, jaga waktu, dan naik ke papan peringkat.</p>
+<div class="row"><button class="btn" id="go">Mulai Bermain</button><button class="btn g" data-d="gd">Panduan Permainan</button></div>
+<div class="stats" id="stats"></div></div><div class="slot big"></div></div></section>
+
+<section id="subjects" class="scr"><button class="lnk" data-go="menu">Kembali</button><h2>Pilih mata pelajaran</h2><div id="grid"></div></section>
+
+<section id="game" class="scr"><div class="arena"><div>
+<div class="gh"><b id="hn"></b><span id="hc"></span><span id="sc"></span></div>
+<div class="bar" id="pb"><i></i></div>
+<div class="gh sub"><span id="st"></span><span id="tm"><span id="tn"></span> dtk</span></div>
+<div class="bar thin" id="tbw"><i id="tb"></i></div>
+<div class="qcard"><p id="qt"></p></div>
+<div id="an" class="ans"></div>
+<div id="fb" class="fb"></div>
+<button class="lnk" id="quit">Keluar dari permainan</button></div>
+<div class="slot side"></div></div></section>
+
+<section id="result" class="scr"><div class="res"><div class="slot big"></div><div id="rb"></div></div></section>
+</main>
+
+<template id="mas"><svg class="mas" viewBox="0 0 200 220" data-mood="idle" role="img" aria-label="Maskot Cermo">
+<line x1="100" y1="50" x2="100" y2="30" stroke="#8B5CF6" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="24" r="9" fill="#8B5CF6"/>
+<g class="bd"><rect x="38" y="48" width="124" height="136" rx="52" fill="#2F6BFF"/><rect x="38" y="124" width="124" height="60" rx="36" fill="#8B5CF6" opacity=".35"/>
+<rect x="54" y="78" width="92" height="74" rx="30" fill="#0A1030"/>
+<g class="ey"><circle cx="80" cy="107" r="11" fill="#fff"/><circle cx="120" cy="107" r="11" fill="#fff"/><circle cx="82" cy="108" r="5" fill="#2F6BFF"/><circle cx="122" cy="108" r="5" fill="#2F6BFF"/></g>
+<path class="br" d="M68 88l22 6M132 88l-22 6" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+<path class="m mi" d="M88 133q12 9 24 0" fill="none" stroke="#7CC4FF" stroke-width="4" stroke-linecap="round"/>
+<path class="m mh" d="M84 128q16 22 32 0z" fill="#fff"/>
+<path class="m ms" d="M88 142q12-10 24 0" fill="none" stroke="#7CC4FF" stroke-width="4" stroke-linecap="round"/>
+<path class="m mt" d="M92 136h16" stroke="#7CC4FF" stroke-width="4" stroke-linecap="round"/>
+<circle cx="36" cy="128" r="14" fill="#2F6BFF"/><g class="arm"><circle cx="164" cy="128" r="14" fill="#2F6BFF"/></g>
+<rect x="66" y="180" width="24" height="18" rx="9" fill="#8B5CF6"/><rect x="110" y="180" width="24" height="18" rx="9" fill="#8B5CF6"/></g></svg></template>
+
+<dialog id="gd"><h3>Panduan permainan</h3><p class="mu">Pilih mata pelajaran, tingkat kesulitan, lalu mode. Solo: 15 detik per soal. Duel: dua pemain bergantian. Time Attack: jawab sebanyak mungkin sebelum waktu habis. Survival: tiga nyawa, satu kesalahan mengurangi satu nyawa. Jawaban beruntun menambah bonus combo. Tombol 1 sampai 4 menjawab dari keyboard.</p><form method="dialog"><button class="btn">Tutup</button></form></dialog>
+
+<dialog id="st"><h3>Pengaturan</h3>
+<label class="set">Efek suara <input type="checkbox" id="sfx"></label>
+<label class="set">Volume <input type="range" id="vol" min="0" max="1" step=".1"></label>
+<label class="set">Mode gelap <input type="checkbox" id="dk"></label>
+<form method="dialog"><button class="btn">Selesai</button></form></dialog>
+
+<dialog id="lb"><h3>Peringkat lokal</h3><div id="lbb"></div><h3>Pencapaian</h3><div id="ach"></div><form method="dialog"><button class="btn">Tutup</button></form></dialog>
+
+<dialog id="su"><h3 id="sn"></h3>
+<p class="mu">Tingkat kesulitan</p><div class="chips" data-k="lv"><button data-v="x">Campuran</button><button data-v="0">Mudah</button><button data-v="1">Sedang</button><button data-v="2">Sulit</button></div>
+<p class="mu">Mode</p><div class="chips" data-k="mode"><button data-v="solo">Solo Challenge</button><button data-v="duel">Duel 2 Pemain</button><button data-v="time">Time Attack</button><button data-v="survival">Survival</button></div>
+<div id="du"><p class="mu">Durasi</p><div class="chips" data-k="dur"><button data-v="30">30 detik</button><button data-v="60">60 detik</button><button data-v="120">120 detik</button></div></div>
+<form method="dialog" class="row"><button class="btn g">Batal</button><button class="btn" id="run" value="x">Mulai</button></form></dialog>
+
+<dialog id="cf"><h3>Keluar dari permainan?</h3><p class="mu">Progres permainan ini tidak akan disimpan.</p><form method="dialog" class="row"><button class="btn g">Lanjut main</button><button class="btn" id="yes" value="y">Keluar</button></form></dialog>
+
+<dialog id="rv"><h3>Pembahasan</h3><div id="rvb"></div><form method="dialog"><button class="btn">Tutup</button></form></dialog>
+<script src="script.js"></script>
+</body></html>
